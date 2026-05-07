@@ -221,7 +221,7 @@ journey
 
 ```mermaid
 flowchart TD
-    subgraph "Newsletter Section (useActionState)"
+    subgraph "Newsletter Section"
         A1[User Enters Email] --> B1[formAction Called]
         B1 --> C1[Show Pending State<br/>Subscribing...]
         C1 --> D1[API Call<br/>Simulated 1s]
@@ -230,17 +230,17 @@ flowchart TD
         E1 -->|No| G1[Show Error Toast]
     end
 
-    subgraph "Favorites (useOptimistic)"
+    subgraph "Favorites"
         A2[User Clicks Heart] --> B2[addOptimisticFavorite]
-        B2 --> C2[Instant UI Update<br/>❤️ / 🤍]
+        B2 --> C2[Instant UI Update<br/>Heart / Unheart]
         C2 --> D2[API Call toggleFavorite]
         D2 --> E2{Success?}
         E2 -->|Yes| F2[Confirm State]
         E2 -->|No| G2[Rollback UI]
     end
 
-    subgraph "Cart (Zustand)"
-        A3["Click #quot;Quick Add#quot;"] --> B3[addItem()]
+    subgraph "Cart"
+        A3["Click 'Quick Add'"] --> B3["addItem()"]
         B3 --> C3[Update items Array]
         C3 --> D3[Show Success Toast]
         C3 --> E3[Persist to localStorage]
