@@ -192,25 +192,25 @@ woolstep-mvp/
 ## 🗺️ User Journey#
 
 ```mermaid
-journey;
-    title WOOLSTEP User Journey;
-    section Discovery;
-      Visit Homepage: 5: User;
-      View Hero Section: 4: User;
-      Read Brand Story: 3: User;
-    section Browsing;
-      Click "Shop Collection": 5: User;
-      Filter Products: 4: User;
-      View Product Detail: 5: User;
-      Toggle Favorite: 3: User;
-    section Purchase;
-      Add to Cart: 5: User;
-      Update Quantity: 4: User;
-      Remove Item: 3: User;
-      Proceed to Checkout: 5: User;
-    section Engagement;
-      Subscribe to Newsletter: 4: User;
-      Receive Confirmation: 5: User;
+journey
+    title WOOLSTEP User Journey
+    section Discovery
+      Visit Homepage: 5: User
+      View Hero Section: 4: User
+      Read Brand Story: 3: User
+    section Browsing
+      Click "Shop Collection": 5: User
+      Filter Products: 4: User
+      View Product Detail: 5: User
+      Toggle Favorite: 3: User
+    section Purchase
+      Add to Cart: 5: User
+      Update Quantity: 4: User
+      Remove Item: 3: User
+      Proceed to Checkout: 5: User
+    section Engagement
+      Subscribe to Newsletter: 4: User
+      Receive Confirmation: 5: User
 ```
 
 ---
