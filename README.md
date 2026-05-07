@@ -220,7 +220,7 @@ journey
 ### React 19 Hooks in Action#
 
 ```mermaid
-flowchart TD;
+flowchart TD
     subgraph "Newsletter Section (useActionState)"
         A1[User Enters Email] --> B1[formAction Called]
         B1 --> C1[Show Pending State<br/>Subscribing...]
@@ -228,8 +228,8 @@ flowchart TD;
         D1 --> E1{Valid Email?}
         E1 -->|Yes| F1[Show Success Toast]
         E1 -->|No| G1[Show Error Toast]
-    end;
-    
+    end
+
     subgraph "Favorites (useOptimistic)"
         A2[User Clicks Heart] --> B2[addOptimisticFavorite]
         B2 --> C2[Instant UI Update<br/>❤️ / 🤍]
@@ -237,18 +237,18 @@ flowchart TD;
         D2 --> E2{Success?}
         E2 -->|Yes| F2[Confirm State]
         E2 -->|No| G2[Rollback UI]
-    end;
-    
+    end
+
     subgraph "Cart (Zustand)"
-        A3[Click "Quick Add"] --> B3[addItem()]
+        A3["Click #quot;Quick Add#quot;"] --> B3[addItem()]
         B3 --> C3[Update items Array]
         C3 --> D3[Show Success Toast]
         C3 --> E3[Persist to localStorage]
-    end;
-    
-    style A1 fill:#C4A882,color:#2C2824;
-    style A2 fill:#C4A882,color:#2C2824;
-    style A3 fill:#C4A882,color:#2C2824;
+    end
+
+    style A1 fill:#C4A882,color:#2C2824
+    style A2 fill:#C4A882,color:#2C2824
+    style A3 fill:#C4A882,color:#2C2824
 ```
 
 ---
