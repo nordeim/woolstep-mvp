@@ -1,4 +1,4 @@
-# 🧶 WOOLSTEP MVP
+# 🧶 WOOLSTEP MVP#
 
 <p align="center">
   <strong>Natural Comfort. Urban Function.</strong>
@@ -21,28 +21,28 @@
 
 ---
 
-## 📖 Introduction
+## 📖 Introduction#
 
 **WOOLSTEP** is a premium wool sneaker e-commerce MVP designed for Singapore's urban tropical lifestyle. This project showcases the perfect marriage of **merino wool comfort** and **modern React 19 capabilities**, serving as a functional prototype for a full-scale e-commerce platform.
 
-### ✨ Key Features
+### ✨ Key Features#
 
 - 🧶 **Merino Wool Technology** — Natural, breathable, temperature-regulating
 - 🌴 **Singapore-Optimized** — Designed for tropical humidity
-- 🎨 **Anti-Generic Design** — "Wool & Fog" palette, brutualist-minimal aesthetic
+- 🎨 **Anti-Generic Design** — "Wool & Fog" palette, brutalist-minimal aesthetic
 - ⚡ **React 19 Features** — `useActionState`, `useOptimistic` hooks
 - 🚀 **Lightning Fast** — Vite 8 with Rolldown (10-30x faster builds)
 - 📱 **Fully Responsive** — Mobile-first with dedicated mobile navigation
 - 🛒 **Smart Cart** — Zustand state with persistence + toast notifications
-- 🧪 **Thoroughly Tested** — 9 Vitest tests covering stores and components
+- 🧪 **Thoroughly Tested** — 9 Vitest tests covering stores and components#
 
-### 🎨 Design Philosophy
+### 🎨 Design Philosophy#
 
 > **Anti-Generic Approach**: We reject Bootstrap-style grids, Inter/Roboto safe choices, and the homogenized "AI slop" aesthetic. Every element is intentional — from the "Wool & Fog" color palette to the editorial typography pairing of Playfair Display and DM Sans.
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack#
 
 | Category | Technology | Version | Purpose |
 |----------|--------------|---------|---------|
@@ -59,40 +59,42 @@
 
 ---
 
-## 🏗 Architecture
+## 🏗 Architecture#
 
-### Component Hierarchy
+### Component Hierarchy#
 
 ```mermaid
-graph TD
+graph TD;
     A["__root.tsx<br/>(Root Layout)"] --> B["Navbar.tsx"]
     A --> C["Outlet<br/>(TanStack Router)"]
     A --> D["Footer.tsx"]
     A --> E["ToastContainer.tsx"]
+    A --> F["CartOverlay.tsx"]
     
-    C --> F["index.tsx<br/>(Home Page)"]
-    C --> G["products.index.tsx<br/>(Products Listing)"]
-    C --> H["products/$id.tsx<br/>(Product Detail)"]
-    C --> I["cart.tsx<br/>(Shopping Cart)"]
-    C --> J["about.tsx<br/>(About Page)"]
+    C --> G["index.tsx<br/>(Home Page)"]
+    C --> H["products.index.tsx<br/>(Products Listing)"]
+    C --> I["products/$id.tsx<br/>(Product Detail)"]
+    C --> J["cart.tsx<br/>(Shopping Cart)"]
+    C --> K["about.tsx<br/>(About Page)"]
     
-    F --> K["HeroSection.tsx"]
-    F --> L["BrandStorySection.tsx"]
-    F --> M["ProductGrid.tsx"]
-    F --> N["NewsletterSection.tsx"]
+    G --> L["HeroSection.tsx"]
+    G --> M["TrustBar.tsx"]
+    G --> N["BrandStorySection.tsx"]
+    G --> O["ProductGrid.tsx"]
+    G --> P["NewsletterSection.tsx"]
     
-    M --> O["FavoriteButton.tsx<br/>(useOptimistic)"]
+    O --> Q["FavoriteButton.tsx<br/>(useOptimistic)"]
     
     style A fill:#3D3832,color:#FAF8F5
-    style F fill:#EDE8DF,color:#2C2824
     style G fill:#EDE8DF,color:#2C2824
     style H fill:#EDE8DF,color:#2C2824
+    style I fill:#EDE8DF,color:#2C2824
 ```
 
-### State Management Flow
+### State Management Flow#
 
 ```mermaid
-flowchart LR
+flowchart LR;
     A["User Action"] --> B["Component"]
     B --> C["Zustand Store"]
     C --> D["State Update"]
@@ -116,7 +118,7 @@ flowchart LR
 
 ---
 
-## 📁 File Structure
+## 📁 File Structure#
 
 ```
 woolstep-mvp/
@@ -137,12 +139,13 @@ woolstep-mvp/
 │   │
 │   ├── 📂 layout/                        # Layout components
 │   │   ├── 🧭 Navbar.tsx                  # Fixed nav with scroll detection
-│   │   └── 👇 Footer.tsx                  # Site footer
+│   │   └── 👇 Footer.tsx                  # Site footer with newsletter + payment icons
 │   │
 │   ├── 📂 sections/                      # Page sections
-│   │   ├── 🎬 HeroSection.tsx             # Landing page hero
-│   │   ├── 📖 BrandStorySection.tsx       # Features grid
-│   │   ├── 🛍️ ProductGrid.tsx            # Filterable product grid
+│   │   ├── 🎬 HeroSection.tsx             # Landing page hero with accent
+│   │   ├── 🛡 TrustBar.tsx                 # Trust indicators (NEW)
+│   │   ├── 📖 BrandStorySection.tsx       # 4 features + expanded narrative
+│   │   ├── 🛍️ ProductGrid.tsx            # Filterable product grid + sizes
 │   │   └── 📧 NewsletterSection.tsx       # useActionState demo
 │   │
 │   ├── 🚨 ErrorBoundary.tsx                # Class-based error boundary
@@ -150,6 +153,7 @@ woolstep-mvp/
 │   └── 📂 cart/                         # Cart components
 │       ├── 🛒 CartPanel.tsx              # Cart items + total
 │       ├── 🛍️ CartItem.tsx              # Individual cart item
+│       ├── 🔴 CartOverlay.tsx             # NEW: Semi-transparent overlay
 │       └── ❤️ FavoriteButton.tsx          # useOptimistic demo
 │
 ├── 📂 src/stores/                       # Zustand stores
@@ -159,7 +163,7 @@ woolstep-mvp/
 │   └── 🔔 toastStore.ts                 # Toast notifications
 │
 ├── 📂 src/routes/                       # TanStack Router (file-based)
-│   ├── 📄 __root.tsx                    # Root layout
+│   ├── 📄 __root.tsx                    # Root layout + CartOverlay
 │   ├── 📄 index.tsx                    # Home page (/)
 │   ├── 📄 about.tsx                    # About page (/about)
 │   ├── 📄 cart.tsx                     # Cart page (/cart)
@@ -185,38 +189,38 @@ woolstep-mvp/
 
 ---
 
-## 🗺️ User Journey
+## 🗺️ User Journey#
 
 ```mermaid
-journey
-    title WOOLSTEP User Journey
-    section Discovery
-      Visit Homepage: 5: User
-      View Hero Section: 4: User
-      Read Brand Story: 3: User
-    section Browsing
-      Click "Shop Collection": 5: User
-      Filter Products: 4: User
-      View Product Detail: 5: User
-      Toggle Favorite: 3: User
-    section Purchase
-      Add to Cart: 5: User
-      Update Quantity: 4: User
-      Remove Item: 3: User
-      Proceed to Checkout: 5: User
-    section Engagement
-      Subscribe to Newsletter: 4: User
-      Receive Confirmation: 5: User
+journey;
+    title WOOLSTEP User Journey;
+    section Discovery;
+      Visit Homepage: 5: User;
+      View Hero Section: 4: User;
+      Read Brand Story: 3: User;
+    section Browsing;
+      Click "Shop Collection": 5: User;
+      Filter Products: 4: User;
+      View Product Detail: 5: User;
+      Toggle Favorite: 3: User;
+    section Purchase;
+      Add to Cart: 5: User;
+      Update Quantity: 4: User;
+      Remove Item: 3: User;
+      Proceed to Checkout: 5: User;
+    section Engagement;
+      Subscribe to Newsletter: 4: User;
+      Receive Confirmation: 5: User;
 ```
 
 ---
 
-## ⚙️ Application Logic Flow
+## ⚙️ Application Logic Flow#
 
-### React 19 Hooks in Action
+### React 19 Hooks in Action#
 
 ```mermaid
-flowchart TD
+flowchart TD;
     subgraph "Newsletter Section (useActionState)"
         A1[User Enters Email] --> B1[formAction Called]
         B1 --> C1[Show Pending State<br/>Subscribing...]
@@ -224,7 +228,7 @@ flowchart TD
         D1 --> E1{Valid Email?}
         E1 -->|Yes| F1[Show Success Toast]
         E1 -->|No| G1[Show Error Toast]
-    end
+    end;
     
     subgraph "Favorites (useOptimistic)"
         A2[User Clicks Heart] --> B2[addOptimisticFavorite]
@@ -233,31 +237,31 @@ flowchart TD
         D2 --> E2{Success?}
         E2 -->|Yes| F2[Confirm State]
         E2 -->|No| G2[Rollback UI]
-    end
+    end;
     
     subgraph "Cart (Zustand)"
         A3[Click "Quick Add"] --> B3[addItem()]
         B3 --> C3[Update items Array]
         C3 --> D3[Show Success Toast]
         C3 --> E3[Persist to localStorage]
-    end
+    end;
     
-    style A1 fill:#C4A882,color:#2C2824
-    style A2 fill:#C4A882,color:#2C2824
-    style A3 fill:#C4A882,color:#2C2824
+    style A1 fill:#C4A882,color:#2C2824;
+    style A2 fill:#C4A882,color:#2C2824;
+    style A3 fill:#C4A882,color:#2C2824;
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started#
 
-### Prerequisites
+### Prerequisites#
 
 - **Node.js**: v24.12.0 or higher
 - **npm**: v11.13.0 or higher
 - **Vite**: v8.0.11 (installed locally)
 
-### Installation
+### Installation#
 
 ```bash
 # Clone the repository
@@ -268,7 +272,7 @@ cd woolstep-mvp
 npm install --legacy-peer-deps
 ```
 
-### Development
+### Development#
 
 ```bash
 # Start Vite dev server (http://localhost:5173)
@@ -278,7 +282,7 @@ npm run dev
 npx tsr generate
 ```
 
-### Production Build
+### Production Build#
 
 ```bash
 # TypeScript check + Vite build
@@ -290,7 +294,7 @@ npm run preview
 
 ---
 
-## 📜 Available Scripts
+## 📜 Available Scripts#
 
 | Command | Description |
 |---------|-------------|
@@ -304,9 +308,9 @@ npm run preview
 
 ---
 
-## ⚡ React 19 Features
+## ⚡ React 19 Features#
 
-### 1. `useActionState` — Newsletter Form
+### 1. `useActionState` — Newsletter Form#
 
 Located in `src/components/sections/NewsletterSection.tsx`:
 
@@ -330,7 +334,7 @@ const [state, formAction, isPending] = useActionState(
 </form>
 ```
 
-### 2. `useOptimistic` — Favorites Toggle
+### 2. `useOptimistic` — Favorites Toggle#
 
 Located in `src/components/FavoriteButton.tsx`:
 
@@ -346,15 +350,15 @@ const handleClick = async () => {
 }
 ```
 
-### 3. React Compiler (Auto-Memoization)
+### 3. React Compiler (Auto-Memoization)#
 
 Enabled via Babel plugin in `vite.config.ts` — automatically optimizes re-renders without manual `useMemo`/`useCallback`.
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing#
 
-### Test Framework: Vitest 3.2+
+### Test Framework: Vitest 3.2+#
 
 ```bash
 # Run all tests
@@ -370,7 +374,7 @@ npx vitest --ui
 npx vitest run --coverage
 ```
 
-### Test Coverage
+### Test Coverage#
 
 | Test File | Tests | Status |
 |-----------|-------|--------|
@@ -379,18 +383,18 @@ npx vitest run --coverage
 | `src/test/favoritesStore.test.ts` | 3 tests | ✅ Passing |
 | **Total** | **9 tests** | **✅ All Passing** |
 
-### Test Standards
+### Test Standards#
 
 - **Behavior-driven**: Test what the user sees/does, not implementation
 - **Testing Library**: `@testing-library/react` for component tests
 - **Vitest API**: Use `describe/it/expect` from `vitest`
-- **Factory pattern**: Generate test data with helper functions
+- **Factory pattern**: Generate test data with helper functions#
 
 ---
 
-## 🚀 Deployment
+## 🚀 Deployment#
 
-### Option 1: GitHub Pages (Recommended)
+### Option 1: GitHub Pages (Recommended)#
 
 The project includes a CI/CD workflow in `.github/workflows/ci.yml`:
 
@@ -408,7 +412,7 @@ The project includes a CI/CD workflow in `.github/workflows/ci.yml`:
 3. Select **GitHub Actions** as source
 4. Push to `main` branch — deployment happens automatically!
 
-### Option 2: Vercel
+### Option 2: Vercel#
 
 ```bash
 # Install Vercel CLI
@@ -427,7 +431,7 @@ vercel --prod
 }
 ```
 
-### Option 3: Netlify
+### Option 3: Netlify#
 
 **Build Settings:**
 - **Build command**: `npm run build`
@@ -442,9 +446,9 @@ NPM_FLAGS=--legacy-peer-deps
 
 ---
 
-## 🎨 Design System
+## 🎨 Design System#
 
-### "Wool & Fog" Color Palette
+### "Wool & Fog" Color Palette#
 
 ```css
 /* From src/globals.css */
@@ -459,7 +463,7 @@ NPM_FLAGS=--legacy-peer-deps
 --color-error: #B87A6E;           /* Error states */
 ```
 
-### Typography
+### Typography#
 
 ```css
 --font-display: 'Playfair Display', Georgia, serif;  /* Headings */
@@ -468,7 +472,7 @@ NPM_FLAGS=--legacy-peer-deps
 
 ---
 
-## 🌿 Environment Variables (Future API Integration)
+## 🌿 Environment Variables (Future API Integration)#
 
 | Variable | Purpose | Example |
 |----------|---------|---------|
@@ -478,28 +482,28 @@ NPM_FLAGS=--legacy-peer-deps
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing#
 
 We welcome contributions! Please follow these guidelines:
 
-### Development Workflow
+### Development Workflow#
 
 1. **Fork** the repository
 2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
 3. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
 4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
+5. **Open** a Pull Request#
 
-### Commit Convention
+### Commit Convention#
 
 Follow **Conventional Commits**:
 - `feat:` — New features
 - `fix:` — Bug fixes
 - `chore:` — Maintenance tasks
 - `docs:` — Documentation updates
-- `test:` — Test additions/changes
+- `test:` — Test additions/changes#
 
-### Code Standards
+### Code Standards#
 
 - ✅ TypeScript strict mode (no `any`)
 - ✅ `erasableSyntaxOnly` (no enums/namespaces)
@@ -509,13 +513,13 @@ Follow **Conventional Commits**:
 
 ---
 
-## 📄 License
+## 📄 License#
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## 🙏 Acknowledgments
+## 🙏 Acknowledgments#
 
 - **Design Inspiration**: WOOLSTEP (Singapore-based wool sneaker brand)
 - **Typography**: Playfair Display & DM Sans (Google Fonts)
