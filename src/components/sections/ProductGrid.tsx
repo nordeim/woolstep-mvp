@@ -112,7 +112,7 @@ export function ProductGrid() {
                     })
                   }
                 >
-                  Quick Add
+                  Quick Add — Size 9
                 </Button>
               </div>
             </div>

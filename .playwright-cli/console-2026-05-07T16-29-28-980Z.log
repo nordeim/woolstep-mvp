@@ -1,0 +1,9 @@
+[    1665ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=104d529f:14336
+[  564212ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564213ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564214ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564214ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564219ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564220ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564266ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
+[  564267ms] [WARNING] Generated path "/" for route "__root__" did not match the same route after params.stringify. @ http://localhost:5173/node_modules/.vite/deps/@tanstack_react-router.js?v=104d529f:3290
