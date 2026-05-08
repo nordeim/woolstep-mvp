@@ -23,3 +23,26 @@ Core:
   attach [name]               attach to a running playwright browser  
   close                       close the browser  
   detach                      detach from an attached browser
+
+---
+
+awesome meticulous job far. please keep up the good work. now, please review the skills in project's `skills/` folder and then use them to meticulously audit the project codebase to ensure compliance.
+
+# Todos
+[ ]  Audit framework: Define audit checklist against all 3 skills
+[ ]  Skill 1: code-review-and-quality - Verify correct implementation
+[ ]  Skill 2: frontend-ui-engineering - Verify component patterns, a11y, responsiveness
+[ ]  Skill 3: super-frontend-design - Verify anti-generic design, Tailwind v4, WCAG AAA
+[ ]  Final: Consolidate findings into prioritized fix list
+
+---
+
+awesome meticulous job so far. please keep up the good work. now, please meticulously re-evaluate and re-validate the gaps and issues you discover in your audit process to confirm the root causes and to identify the optimal fix. then meticulously plan to create a detailed remediation plan with ToDo list to apply the validated optimal fixes for the validated gaps and issues/bugs. review and validate the remediation against the codebase again to check for correct alignment before proceeding to execute it meticulously. use TDD approach to make changes.
+
+# Todos
+[ ] Re-evaluate & validate all gaps and issues found during audit
+[ ] Perform root cause analysis for each confirmed gap/bug
+[ ] Create detailed remediation plan with ToDo list
+[ ] Validate remediation plan against codebase for alignment
+[ ] Execute approved fixes meticulously
+[ ] Final re-validation post-execution
