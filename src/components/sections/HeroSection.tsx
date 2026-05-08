@@ -10,10 +10,10 @@ export function HeroSection() {
         <img
           src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&h=900&fit=crop&q=80"
           alt="Wool sneakers"
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-warm-white)]/50 to-[var(--color-warm-white)]" />
-        <div className="absolute bottom--24 left--24 w-48 h-48 bg-gradient-to-br from-[var(--color-terracotta)] to-[var(--color-foggy-gray)] rounded-lg opacity-30 -z-10" aria-hidden="true" />
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-gradient-to-br from-[var(--color-terracotta)] to-[var(--color-foggy-gray)] rounded-lg opacity-30 -z-10" aria-hidden="true" />
       </div>
 
       {/* Content */}

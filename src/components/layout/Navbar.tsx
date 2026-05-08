@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from '@tanstack/react-router'
-import { ShoppingBag, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import { CartIcon } from '@components/CartIcon'
 import { useCartStore } from '@stores/cartStore'
 import { cn } from '@lib/utils'
 
@@ -71,7 +72,7 @@ export function Navbar() {
               aria-label="Shopping cart"
               aria-expanded={isCartOpen}
             >
-              <ShoppingBag className="w-6 h-6" />
+              <CartIcon />
               {count > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-[var(--color-warm-charcoal)] text-[var(--color-warm-white)] text-xs font-bold rounded-full flex items-center justify-center animate-[badge-pulse_300ms_ease-out]">
                   {count}
