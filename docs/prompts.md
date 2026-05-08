@@ -51,3 +51,6 @@ awesome meticulous job so far. please keep up the good work. now, please meticul
 
 awesome meticulous job so far. please keep up the good work. please use your 'readme-md' and 'agents-md' skills (`/home/pete/.pi/agent/skills/readme-md/SKILL.md` and `/home/pete/.pi/agent/skills/agents-md/SKILL.md` to review and update @README.md , @AGENTS.md and @ACCOMPLISHED.md with recent changes and your accomplishments, including troubleshooting tips, anti-patterns, pitfalls and gotchas and how to avoid them.
 
+---
+
+awesome meticulous job so far. please keep up the good work. now, please meticulously plan to conduct a code review and audit using skills `super-frontend-design` , `frontend-ui-engineering` and `code-review-and-quality`. then meticulously create a comprehensive code review and audit report as a markdown file with an appropriate filename. DO NOT make any code changes yet.
