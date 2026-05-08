@@ -192,25 +192,25 @@ woolstep-mvp/
 ## 🗺️ User Journey#
 
 ```mermaid
-journey;
-    title WOOLSTEP User Journey;
-    section Discovery;
-      Visit Homepage: 5: User;
-      View Hero Section: 4: User;
-      Read Brand Story: 3: User;
-    section Browsing;
-      Click "Shop Collection": 5: User;
-      Filter Products: 4: User;
-      View Product Detail: 5: User;
-      Toggle Favorite: 3: User;
-    section Purchase;
-      Add to Cart: 5: User;
-      Update Quantity: 4: User;
-      Remove Item: 3: User;
-      Proceed to Checkout: 5: User;
-    section Engagement;
-      Subscribe to Newsletter: 4: User;
-      Receive Confirmation: 5: User;
+journey
+    title WOOLSTEP User Journey
+    section Discovery
+      Visit Homepage: 5: User
+      View Hero Section: 4: User
+      Read Brand Story: 3: User
+    section Browsing
+      Click "Shop Collection": 5: User
+      Filter Products: 4: User
+      View Product Detail: 5: User
+      Toggle Favorite: 3: User
+    section Purchase
+      Add to Cart: 5: User
+      Update Quantity: 4: User
+      Remove Item: 3: User
+      Proceed to Checkout: 5: User
+    section Engagement
+      Subscribe to Newsletter: 4: User
+      Receive Confirmation: 5: User
 ```
 
 ---
@@ -220,35 +220,35 @@ journey;
 ### React 19 Hooks in Action#
 
 ```mermaid
-flowchart TD;
-    subgraph "Newsletter Section (useActionState)"
+flowchart TD
+    subgraph "Newsletter Section"
         A1[User Enters Email] --> B1[formAction Called]
         B1 --> C1[Show Pending State<br/>Subscribing...]
         C1 --> D1[API Call<br/>Simulated 1s]
         D1 --> E1{Valid Email?}
         E1 -->|Yes| F1[Show Success Toast]
         E1 -->|No| G1[Show Error Toast]
-    end;
-    
-    subgraph "Favorites (useOptimistic)"
+    end
+
+    subgraph "Favorites"
         A2[User Clicks Heart] --> B2[addOptimisticFavorite]
-        B2 --> C2[Instant UI Update<br/>❤️ / 🤍]
+        B2 --> C2[Instant UI Update<br/>Heart / Unheart]
         C2 --> D2[API Call toggleFavorite]
         D2 --> E2{Success?}
         E2 -->|Yes| F2[Confirm State]
         E2 -->|No| G2[Rollback UI]
-    end;
-    
-    subgraph "Cart (Zustand)"
-        A3[Click "Quick Add"] --> B3[addItem()]
+    end
+
+    subgraph "Cart"
+        A3["Click 'Quick Add'"] --> B3["addItem()"]
         B3 --> C3[Update items Array]
         C3 --> D3[Show Success Toast]
         C3 --> E3[Persist to localStorage]
-    end;
-    
-    style A1 fill:#C4A882,color:#2C2824;
-    style A2 fill:#C4A882,color:#2C2824;
-    style A3 fill:#C4A882,color:#2C2824;
+    end
+
+    style A1 fill:#C4A882,color:#2C2824
+    style A2 fill:#C4A882,color:#2C2824
+    style A3 fill:#C4A882,color:#2C2824
 ```
 
 ---
