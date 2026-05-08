@@ -1,0 +1,2 @@
+import{t as e}from"./react-vendor-DRTYvtHH.js";import{t}from"./ProductGrid-BiO1SlOi.js";var n=e();function r(){return(0,n.jsxs)(`div`,{className:`container-custom py-16`,children:[(0,n.jsx)(`h1`,{className:`font-[family-name:var(--font-display)] text-4xl md:text-5xl mb-8 text-center`,children:`Our Collection`}),(0,n.jsx)(t,{})]})}export{r as component};
+//# sourceMappingURL=products.index-DkBatLYe.js.map

@@ -3,6 +3,7 @@ import { Navbar } from '@components/layout/Navbar'
 import { Footer } from '@components/layout/Footer'
 import { ToastContainer } from '@components/ToastContainer'
 import { CartOverlay } from '@components/cart/CartOverlay'
+import { CartDrawer } from '@components/cart/CartDrawer'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -18,6 +19,7 @@ function RootComponent() {
       <Footer />
       <ToastContainer />
       <CartOverlay />
+      <CartDrawer />
     </>
   )
 }
