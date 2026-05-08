@@ -390,6 +390,25 @@ npx vitest run --coverage
 - **Vitest API**: Use `describe/it/expect` from `vitest`
 - **Factory pattern**: Generate test data with helper functions#
 
+### Troubleshooting Tests#
+
+```bash
+# Issue: "Cannot find module '@testing-library/react'"
+# Solution:
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+
+# Issue: Tests failing with "Cannot find module '@stores/cartStore'"
+# Solution: Add path aliases to vitest.config.ts
+
+# Issue: "useRouter must be used inside a <RouterProvider>"
+# Solution: Test components that use router hooks with wrapper:
+const { getByText } = render(
+  <RouterProvider router={router}>
+    <Component />
+  </RouterProvider>
+)
+```
+
 ---
 
 ## 🚀 Deployment#
@@ -516,6 +535,66 @@ Follow **Conventional Commits**:
 ## 📄 License#
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## 🛠 Troubleshooting & Pitfalls#
+
+### Component Naming Gotchas
+
+```tsx
+// ⚠️ GOTCHA: Always match export name, file name, and import name
+// ❌ WRONG (mismatch causes confusion):
+// File: CartOverly.tsx    → Export: CartOverly    → Import: import { CartOverly }
+// ✅ CORRECT:
+// File: CartOverlay.tsx   → Export: CartOverlay   → Import: import { CartOverlay }
+```
+
+### Zustand Reactivity Traps
+
+```tsx
+// ⚠️ GOTCHA: Don't use getState() inside JSX
+// ❌ WRONG (stale value, no re-renders):
+aria-expanded={useCartStore.getState().isOpen}
+
+// ✅ CORRECT (subscribes to re-renders):
+const isCartOpen = useCartStore((state) => state.isOpen)
+aria-expanded={isCartOpen}
+```
+
+### Stubbed Tests Should Never Be Left As Placeholders
+
+```typescript
+// ⚠️ GOTCHA: Don't leave expect(true).toBe(true) in tests
+// ❌ WRONG:
+it('should auto-remove toast after timeout', () => {
+  expect(true).toBe(true)
+})
+
+// ✅ CORRECT:
+it('should auto-remove toast after timeout', () => {
+  vi.useFakeTimers()
+  // ... test actual behavior ...
+  vi.useRealTimers()
+})
+```
+
+### Tailwind v4 CSS-First Animations
+
+```css
+/* ⚠️ GOTCHA: Custom animations must be inside @theme inline in globals.css */
+/* ❌ WRONG (using undefined class): */
+<div className="reveal">
+
+/* ✅ CORRECT (define first in globals.css): */
+@theme inline {
+  --animate-reveal: reveal 800ms ease-out forwards;
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+```
 
 ---
 
