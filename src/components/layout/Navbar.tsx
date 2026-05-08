@@ -9,6 +9,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { openCart, getCount } = useCartStore()
   const count = getCount()
+  const isCartOpen = useCartStore((state) => state.isOpen)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -68,7 +69,7 @@ export function Navbar() {
               onClick={openCart}
               className="relative p-2 text-[var(--color-text-primary)] hover:scale-105 transition-transform"
               aria-label="Shopping cart"
-              aria-expanded={useCartStore.getState().isOpen}
+              aria-expanded={isCartOpen}
             >
               <ShoppingBag className="w-6 h-6" />
               {count > 0 && (

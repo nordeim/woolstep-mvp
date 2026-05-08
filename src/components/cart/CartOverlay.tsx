@@ -1,6 +1,6 @@
 import { useCartStore } from '@stores/cartStore'
 
-export function CartOverly() {
+export function CartOverlay() {
   const isOpen = useCartStore((state) => state.isOpen)
   const closeCart = useCartStore((state) => state.closeCart)
 

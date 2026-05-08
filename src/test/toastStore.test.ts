@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useToastStore } from '../stores/toastStore'
 
 describe('ToastStore', () => {
@@ -33,8 +33,19 @@ describe('ToastStore', () => {
   })
 
   it('should auto-remove toast after timeout', () => {
-    // This test is tricky because of setTimeout
-    // We can use vi.useFakeTimers()
-    expect(true).toBe(true)
+    // Use Vitest's fake timers to assert auto-removal logic properly
+    vi.useFakeTimers()
+
+    const { addToast } = useToastStore.getState()
+
+    addToast('Auto remove toast', 'info')
+    expect(useToastStore.getState().toasts).toHaveLength(1)
+
+    // Fast-forward past the 3000ms auto-removal timeout
+    vi.advanceTimersByTime(3100)
+
+    expect(useToastStore.getState().toasts).toHaveLength(0)
+
+    vi.useRealTimers()
   })
 })

@@ -1,8 +1,30 @@
+import { useActionState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Button } from '@components/ui/button'
+import { Input } from '@components/ui/input'
 import { ArrowRight } from 'lucide-react'
 
 export function Footer() {
+  const initialState: { message: string; type: 'idle' | 'success' | 'error' } = {
+    message: '',
+    type: 'idle'
+  }
+
+  const [state, formAction, isPending] = useActionState(
+    async (_prevState: typeof initialState, formData: FormData) => {
+      const email = formData.get('email') as string
+
+      if (!email || !email.includes('@')) {
+        return { message: 'Please enter a valid email address.', type: 'error' as const }
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      return { message: 'Thanks for subscribing! Check your inbox soon.', type: 'success' as const }
+    },
+    initialState
+  )
+
   return (
     <footer className="bg-[var(--color-warm-charcoal)] text-[var(--color-foggy-gray)] py-16 mt-auto">
       <div className="container-custom">
@@ -16,16 +38,33 @@ export function Footer() {
               Premium wool sneakers for the urban Singapore lifestyle. Natural comfort meets tropical functionality.
             </p>
             {/* Newsletter Signup */}
-            <div className="flex gap-2">
-              <input
+            <form action={formAction} className="flex gap-2">
+              <Input
                 type="email"
+                name="email"
                 placeholder="your@email.com"
-                className="flex-1 px-3 py-2 bg-[rgba(250,248,245,0.1)] border border-[rgba(250,248,245,0.2)] rounded-md text-[var(--color-warm-white)] text-sm font-[family-name:var(--font-body)] min-h-[48px]"
+                required
+                disabled={isPending}
+                className="flex-1 bg-[rgba(250,248,245,0.1)] border-[rgba(250,248,245,0.2)] text-[var(--color-warm-white)] placeholder:text-[var(--color-stone)] text-sm min-h-[48px]"
               />
-              <Button className="bg-[var(--color-terracotta)] text-[var(--color-warm-charcoal)] hover:bg-[var(--color-foggy-gray)] px-4 py-2 text-sm font-semibold min-h-[48px]">
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="bg-[var(--color-terracotta)] text-[var(--color-warm-charcoal)] hover:bg-[var(--color-foggy-gray)] px-4 text-sm font-semibold min-h-[48px]"
+              >
                 <ArrowRight className="w-4 h-4" />
               </Button>
-            </div>
+            </form>
+            {state.type !== 'idle' && (
+              <p
+                className={`mt-2 text-xs ${
+                  state.type === 'success' ? 'text-[var(--color-success)]' : 'text-[var(--color-error)]'
+                }`}
+                role="alert"
+              >
+                {state.message}
+              </p>
+            )}
           </div>
 
           {/* Quick Links */}
