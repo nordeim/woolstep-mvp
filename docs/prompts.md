@@ -59,3 +59,7 @@ awesome meticulous job so far. please keep up the good work. now, please meticul
 
 awsome meticulous job so far. please keep up the good work. now, please meticulously plan to review and validate the findings and suggestions in @suggested_fix_inactive_cart_icon_2.md against the codebase to identify the root cause     and the optimal fix for the inactive 'Cart' icon in the top nav bar. 
 
+---
+
+awesome meticulous job so far. please keep up the good work. now, please meticulously review and update @README.md , @AGENTS.md and @ACCOMPLISHED.md with recent changes and your accomplishments, including troubleshooting tips, anti-patterns, pitfalls and gotchas and how to avoid them.
+

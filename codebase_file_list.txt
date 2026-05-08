@@ -7,9 +7,11 @@ vitest.config.ts
 src/routeTree.gen.ts
 src/vite-env.d.ts
 src/main.tsx
+src/components/CartIcon.tsx
 src/components/layout/Footer.tsx
 src/components/layout/Navbar.tsx
 src/components/cart/CartItem.tsx
+src/components/cart/CartDrawer.tsx
 src/components/cart/CartPanel.tsx
 src/components/cart/CartOverlay.tsx
 src/components/ui/card.tsx
@@ -28,6 +30,7 @@ src/stores/cartStore.ts
 src/stores/toastStore.ts
 src/stores/productStore.ts
 src/stores/favoritesStore.ts
+src/test/cartDrawer.test.tsx
 src/test/cartStore.test.ts
 src/test/toastStore.test.ts
 src/test/favoritesStore.test.ts

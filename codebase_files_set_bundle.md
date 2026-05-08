@@ -35,36 +35,36 @@
     "route:generate": "tsr generate"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.114.0",
-    "@tanstack/router-devtools": "^1.114.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
-    "lucide-react": "^0.460.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.0",
-    "zustand": "^5.0.0"
+    "@tanstack/react-router": "^1.169.2",
+    "@tanstack/router-devtools": "^1.166.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.14.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwind-merge": "^3.5.0",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "@tailwindcss/vite": "^4.0.0",
-    "@tanstack/router-cli": "^1.114.0",
-    "@tanstack/router-plugin": "^1.114.0",
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.2.4",
+    "@tanstack/router-cli": "^1.166.43",
+    "@tanstack/router-plugin": "^1.167.35",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.0",
-    "eslint": "^9.0.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.0",
-    "globals": "^15.0.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
     "jsdom": "^29.1.1",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.8.0",
-    "vite": "^8.0.0",
-    "vitest": "^3.0.0"
+    "tailwindcss": "^4.2.4",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.11",
+    "vitest": "^4.1.5"
   }
 }
 
@@ -91,15 +91,14 @@
     "noFallthroughCasesInSwitch": true,
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@lib/*": ["src/lib/*"],
-      "@routes/*": ["src/routes/*"],
-      "@stores/*": ["src/stores/*"],
-      "@types/*": ["src/types/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@stores/*": ["./src/stores/*"],
+      "@types/*": ["./src/types/*"]
     }
   },
   "include": ["src"],
@@ -374,6 +373,32 @@ createRoot(document.getElementById('root')!).render(
 
 ```
 
+# src/components/CartIcon.tsx
+```tsx
+export function CartIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      width={18}
+      height={18}
+      className={className}
+      aria-hidden="true"
+    >
+      {/* Arch handle */}
+      <path d="M9 4a3 3 0 0 1 6 0" />
+      {/* Bag body */}
+      <path d="M3 8h18l-1.5 12H4.5L3 8z" />
+    </svg>
+  )
+}
+
+```
+
 # src/components/layout/Footer.tsx
 ```tsx
 import { useActionState } from 'react'
@@ -524,7 +549,8 @@ export function Footer() {
 ```tsx
 import { useState, useEffect } from 'react'
 import { Link } from '@tanstack/react-router'
-import { ShoppingBag, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import { CartIcon } from '@components/CartIcon'
 import { useCartStore } from '@stores/cartStore'
 import { cn } from '@lib/utils'
 
@@ -595,7 +621,7 @@ export function Navbar() {
               aria-label="Shopping cart"
               aria-expanded={isCartOpen}
             >
-              <ShoppingBag className="w-6 h-6" />
+              <CartIcon />
               {count > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-[var(--color-warm-charcoal)] text-[var(--color-warm-white)] text-xs font-bold rounded-full flex items-center justify-center animate-[badge-pulse_300ms_ease-out]">
                   {count}
@@ -718,6 +744,116 @@ export function CartItem({ item }: { item: { id: string; name: string; price: nu
 
 ```
 
+# src/components/cart/CartDrawer.tsx
+```tsx
+import { useEffect } from 'react'
+import { Link } from '@tanstack/react-router'
+import { useCartStore } from '@stores/cartStore'
+import { cn } from '@lib/utils'
+import { Button } from '@components/ui/button'
+import { X } from 'lucide-react'
+import { CartItem } from './CartItem'
+
+export function CartDrawer() {
+  const isOpen = useCartStore((s) => s.isOpen)
+  const closeCart = useCartStore((s) => s.closeCart)
+  const items = useCartStore((s) => s.items)
+  const clearCart = useCartStore((s) => s.clearCart)
+  const getTotal = useCartStore((s) => s.getTotal)
+  const getCount = useCartStore((s) => s.getCount)
+
+  const total = getTotal()
+  const count = getCount()
+
+  /* Close on Escape key */
+  useEffect(() => {
+    if (!isOpen) return
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeCart()
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [isOpen, closeCart])
+
+  /* Prevent body scroll when drawer is open */
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
+  const isEmpty = count === 0
+
+  return (
+    <aside
+      role="dialog"
+      aria-label="Shopping cart"
+      aria-modal="true"
+      className={cn(
+        'fixed inset-y-0 right-0 w-full max-w-md bg-[var(--color-warm-white)] z-[var(--z-cart)]',
+        'shadow-xl flex flex-col transition-transform duration-300 ease-out',
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      )}
+      inert={!isOpen}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between p-6 border-b border-[var(--color-foggy-gray)]/20">
+        <h2 className="font-[family-name:var(--font-display)] text-2xl">Your Cart</h2>
+        <button
+          onClick={closeCart}
+          aria-label="Close cart"
+          className="p-2 -mr-2 text-[var(--color-text-secondary)] hover:text-[var(--color-warm-charcoal)] transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto p-6">
+        {isEmpty ? (
+          <div className="text-center py-16">
+            <p className="text-xl text-[var(--color-text-muted)] mb-6">
+              Your cart is empty
+            </p>
+            <Link to="/products" onClick={closeCart}>
+              <Button size="lg">Continue Shopping</Button>
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {items.map((item) => (
+              <CartItem key={item.id} item={item} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      {!isEmpty && (
+        <div className="p-6 border-t border-[var(--color-foggy-gray)]/20 space-y-4">
+          <div className="flex justify-between items-center">
+            <span className="text-lg text-[var(--color-text-secondary)]">
+              Total ({count} items)
+            </span>
+            <span className="text-2xl font-[family-name:var(--font-display)]">
+              S${total}
+            </span>
+          </div>
+          <Button size="lg" className="w-full">
+            Checkout
+          </Button>
+          <Button size="lg" variant="ghost" className="w-full" onClick={clearCart}>
+            Clear Cart
+          </Button>
+        </div>
+      )}
+    </aside>
+  )
+}
+
+```
+
 # src/components/cart/CartPanel.tsx
 ```tsx
 import { Link } from '@tanstack/react-router'
@@ -787,21 +923,22 @@ export function CartPanel() {
 
 # src/components/cart/CartOverlay.tsx
 ```tsx
+import { cn } from '@lib/utils'
 import { useCartStore } from '@stores/cartStore'
 
 export function CartOverlay() {
   const isOpen = useCartStore((state) => state.isOpen)
   const closeCart = useCartStore((state) => state.closeCart)
 
-  if (!isOpen) return null
-
   return (
     <div
-      className={`fixed inset-0 bg-[rgba(44,40,36,0.4)] z-[var(--z-overlay)] transition-opacity duration-300 ${
+      className={cn(
+        'fixed inset-0 bg-[rgba(44,40,36,0.4)] z-[var(--z-overlay)] transition-opacity duration-300',
         isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-      }`}
+      )}
       onClick={closeCart}
       aria-hidden="true"
+      inert={!isOpen}
     />
   )
 }
@@ -1176,10 +1313,10 @@ export function HeroSection() {
         <img
           src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&h=900&fit=crop&q=80"
           alt="Wool sneakers"
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-warm-white)]/50 to-[var(--color-warm-white)]" />
-        <div className="absolute bottom--24 left--24 w-48 h-48 bg-gradient-to-br from-[var(--color-terracotta)] to-[var(--color-foggy-gray)] rounded-lg opacity-30 -z-10" aria-hidden="true" />
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-gradient-to-br from-[var(--color-terracotta)] to-[var(--color-foggy-gray)] rounded-lg opacity-30 -z-10" aria-hidden="true" />
       </div>
 
       {/* Content */}
@@ -1800,6 +1937,103 @@ export const useFavoritesStore = create<FavoritesState>((set, _get) => ({
 
 ```
 
+# src/test/cartDrawer.test.tsx
+```tsx
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { render, screen, fireEvent, cleanup, act, waitFor } from '@testing-library/react'
+import { useCartStore } from '../stores/cartStore'
+import { CartDrawer } from '../components/cart/CartDrawer'
+
+/* Mock TanStack Router Link so tests don't need RouterProvider */
+vi.mock('@tanstack/react-router', () => ({
+  Link: ({ children, ...props }: { children: React.ReactNode } & Record<string, unknown>) => (
+    <a {...props}>{children}</a>
+  )
+}))
+
+describe('CartDrawer', () => {
+  beforeEach(() => {
+    useCartStore.getState().clearCart()
+    useCartStore.getState().closeCart()
+  })
+
+  afterEach(() => {
+    cleanup()
+    useCartStore.getState().closeCart()
+  })
+
+  it('should render hidden when cart is closed', () => {
+    render(<CartDrawer />)
+    const panel = screen.getByRole('dialog', { name: 'Shopping cart' })
+    expect(panel).toBeDefined()
+    expect(panel).toHaveClass('translate-x-full')
+  })
+
+  it('should reveal panel when cart opens', async () => {
+    render(<CartDrawer />)
+    await act(async () => {
+      useCartStore.getState().openCart()
+    })
+    const panel = screen.getByRole('dialog', { name: 'Shopping cart' })
+    await waitFor(() => {
+      expect(panel).toHaveClass('translate-x-0')
+    })
+  })
+
+  it('should show empty state when cart is empty', async () => {
+    render(<CartDrawer />)
+    await act(async () => {
+      useCartStore.getState().openCart()
+    })
+    expect(screen.getByText('Your cart is empty')).toBeDefined()
+  })
+
+  it('should close on close button click', async () => {
+    render(<CartDrawer />)
+    await act(async () => {
+      useCartStore.getState().openCart()
+    })
+    const closeBtn = screen.getByLabelText('Close cart')
+    fireEvent.click(closeBtn)
+    expect(useCartStore.getState().isOpen).toBe(false)
+  })
+
+  it('should close on Escape key', async () => {
+    render(<CartDrawer />)
+    await act(async () => {
+      useCartStore.getState().openCart()
+    })
+    fireEvent.keyDown(document.body, { key: 'Escape' })
+    expect(useCartStore.getState().isOpen).toBe(false)
+  })
+
+  it('should render cart items when present', async () => {
+    const { addItem } = useCartStore.getState()
+    addItem({
+      id: 'test-1',
+      name: 'Test Product',
+      price: 100,
+      image: 'test.jpg',
+      category: 'men'
+    })
+    addItem({
+      id: 'test-2',
+      name: 'Another Product',
+      price: 200,
+      image: 'test2.jpg',
+      category: 'women'
+    })
+    render(<CartDrawer />)
+    await act(async () => {
+      useCartStore.getState().openCart()
+    })
+    expect(screen.getByText('Test Product')).toBeDefined()
+    expect(screen.getByText('Another Product')).toBeDefined()
+  })
+})
+
+```
+
 # src/test/cartStore.test.ts
 ```ts
 import { describe, it, expect, beforeEach } from 'vitest'
@@ -2194,6 +2428,7 @@ import { Navbar } from '@components/layout/Navbar'
 import { Footer } from '@components/layout/Footer'
 import { ToastContainer } from '@components/ToastContainer'
 import { CartOverlay } from '@components/cart/CartOverlay'
+import { CartDrawer } from '@components/cart/CartDrawer'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -2209,6 +2444,7 @@ function RootComponent() {
       <Footer />
       <ToastContainer />
       <CartOverlay />
+      <CartDrawer />
     </>
   )
 }

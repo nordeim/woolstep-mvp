@@ -23,7 +23,9 @@ src/
 │   ├── ui/               # shadcn primitives (Button, Card, Input, Badge)
 │   ├── layout/           # Navbar, Footer
 │   ├── sections/         # Hero, TrustBar, ProductGrid, Newsletter
-│   └── cart/             # CartPanel, CartItem, FavoriteButton, CartOverlay
+│   └── cart/             # CartPanel, CartItem, FavoriteButton, CartOverlay, CartDrawer
+│   └── CartIcon.tsx       # Bespoke SVG cart icon (18x18, ds
+d)cn replacement)
 ├── stores/               # Zustand (.ts), persist middleware for cart
 ├── routes/               # TanStack file-based routing
 │   ├── __root.tsx        # Root layout + CartOverlay integration
@@ -81,9 +83,53 @@ src/
 - **Framework:** Vitest 3 + `@testing-library/react` (jsdom).
 - **Standards:** Behavior-driven. Test user actions, not implementation. Use factory pattern for mock data.
 - **Async/Time:** Use `vi.useFakeTimers()` for time-dependent logic (e.g., toast 3s auto-remove). No placeholder `expect(true).toBe(true)`.
-- **Coverage:** `cartStore`, `toastStore`, `favoritesStore` (9 tests total).
+- **Coverage:** `cartStore`, `toastStore`, `favoritesStore`, `cartDrawer` (15 tests total).
 
 ## 🐛 Troubleshooting & Debt
+### Tailwind Negative Value Syntax (CRITICAL)
+```css
+/* ❌ WRONG: Double-hyphen is invalid Tailwind v4 */
+className="absolute bottom--24 left--24 ..."
+
+/* ✅ CORRECT: Single hyphen prefix for negative values */
+className="absolute -bottom-24 -left-24 ..."
+```
+Note: Tailwind v4 does NOT parse `bottom--24` as a negative value. This silently fails — the element gets no positioning. Always use `-bottom-24`.
+
+### `inert` React Prop is BOOLEAN (TS2322)
+```tsx
+/* ❌ WRONG: `inert` expects boolean | undefined, NOT string */
+<aside inert={isOpen ? undefined : 'true'} />  // TS2322 error
+
+/* ✅ CORRECT: Boolean expression or omitted */
+<aside inert={!isOpen} />
+```
+This applies to both `inert` and `contentEditable` — they are boolean-valued React props.
+
+### TanStack Router `Link` in Unit Tests
+```tsx
+/* ❌ WRONG: Tests for components using <Link> crash without router context */
+render(<CartDrawer />)  // throws "useRouter must be used inside <RouterProvider>"
+
+/* ✅ CORRECT: Mock the router in test setup */
+vi.mock('@tanstack/react-router', () => ({
+  Link: ({ children, ...props }: { children: React.ReactNode } & Record<string, unknown>) => (
+    <a {...props}>{children}</a>
+  )
+}))
+```
+
+### React 19 Asynchronous State Updates in Tests
+```tsx
+/* ❌ WRONG: State updates outside fireEvent require act() */
+useCartStore.getState().openCart()
+
+/* ✅ CORRECT: Wrap store mutations in act() so DOM updates are flushed */
+await act(async () => {
+  useCartStore.getState().openCart()
+})
+```
+
 - `manualChunks` build error: Vite 8/Rolldown requires function form in `vite.config.ts`.
 - Dependency conflicts: Always use `--legacy-peer-deps`.
 - TS test errors: Ensure no unused imports (`noUnusedLocals: true`).
@@ -91,7 +137,7 @@ src/
 - **Next Steps:** Search, auth, checkout flow, reviews, image zoom, backend API, deployment.
 
 ## ✅ Success Metrics
-- `npm run build` < 1s, `npx vitest run` passes 9 tests, `npx tsc --noEmit` zero errors.
+- `npm run build` < 1s, `npx vitest run` passes 15 tests, `npx tsc --noEmit` zero errors.
 - All routes render correctly. Cart (add/remove/update) & favorites (optimistic) work.
 - Newsletter uses `useActionState` with pending states. Responsive layout & mobile nav functional.
 - Toast notifications fire on cart actions. TrustBar, Footer (newsletter + payment icons), and CartOverlay integrated.

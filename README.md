@@ -381,7 +381,8 @@ npx vitest run --coverage
 | `src/test/cartStore.test.ts` | 3 tests | ✅ Passing |
 | `src/test/toastStore.test.ts` | 3 tests | ✅ Passing |
 | `src/test/favoritesStore.test.ts` | 3 tests | ✅ Passing |
-| **Total** | **9 tests** | **✅ All Passing** |
+| `src/test/cartDrawer.test.tsx` | 6 tests | ✅ Passing (NEW) |
+| **Total** | **15 tests** | **✅ All Passing** |
 
 ### Test Standards#
 
@@ -594,6 +595,61 @@ it('should auto-remove toast after timeout', () => {
     to   { opacity: 1; transform: translateY(0); }
   }
 }
+```
+
+### Tailwind v4 Negative Value Gotcha (Double-Hyphen)
+
+```css
+/* ⚠️ GOTCHA: Double-hyphen is NOT valid Tailwind v4 negative syntax */
+/* ❌ WRONG: */
+className="absolute bottom--24 left--24 ..."
+/* Tailwind silently ignores this — element gets NO positioning. */
+
+/* ✅ CORRECT: Single hyphen prefix for negative values */
+className="absolute -bottom-24 -left-24 ..."
+```
+
+### React `inert` is a Boolean Prop (TS2322)
+
+```tsx
+// ⚠️ GOTCHA: `inert` is a boolean React prop, NOT a string attribute
+// ❌ WRONG:
+<aside inert={isOpen ? undefined : 'true'} />  // TS2322: string not assignable to boolean
+
+// ✅ CORRECT: Boolean expression or omitted when false
+<aside inert={!isOpen} />
+// Rule: `inert`, contentEditable, autoFocus, readOnly are ALL boolean props.
+```
+
+### TanStack Router `Link` in Unit Tests
+
+```typescript
+// ⚠️ GOTCHA: Components using <Link> crash in tests without router context
+// ❌ WRONG:
+render(<CartDrawer />)  // "useRouter must be used inside <RouterProvider>"
+
+// ✅ CORRECT: Mock the router in test setup
+vi.mock('@tanstack/react-router', () => ({
+  Link: ({ children, ...props }: { children: React.ReactNode } & Record<string, unknown>) => (
+    <a {...props}>{children}</a>
+  )
+}))
+```
+
+### React 19 Async State Updates in Tests
+
+```typescript
+// ⚠️ GOTCHA: State updates outside fireEvent need act() wrapper
+// ❌ WRONG:
+useCartStore.getState().openCart()
+expect(screen.getByRole('dialog')).toHaveClass('translate-x-0')  // FAILS
+
+// ✅ CORRECT: Wrap store mutations in act() so DOM flushes
+import { act } from '@testing-library/react'
+
+await act(async () => {
+  useCartStore.getState().openCart()
+})
 ```
 
 ### TypeScript `baseUrl` Deprecation (TS5101)

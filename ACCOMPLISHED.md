@@ -215,17 +215,18 @@ Solution: Add path aliases to vitest.config.ts
 
 ## Build & Test Status
 
-### Verification (2026-05-08)
+### Verification (2026-05-09)
 
 ```bash
 PASS npm run build
-     Status: PASS (692ms, 1684 modules transformed)
+     Status: PASS (596ms, 1855 modules transformed)
 
 PASS npx vitest run
-     Status: PASS (9/9 tests passing)
-     cartStore.test.ts: 3 tests
-     toastStore.test.ts: 3 tests (auto-removal tested)
+     Status: PASS (15/15 tests passing)
+     cartStore.test.ts:     3 tests
+     toastStore.test.ts:    3 tests (auto-removal tested)
      favoritesStore.test.ts: 3 tests
+     cartDrawer.test.ts:    6 tests (new! - open/close, close button, Escape, empty state, items)
 
 PASS npx tsc --noEmit
      Status: PASS (no TypeScript errors)
@@ -323,6 +324,29 @@ it('should auto-remove toast after timeout', () => {
 }
 ```
 
+### ANTI-PATTERN 6: Tailwind negative values as double-hyphen
+
+```tsx
+// WRONG (Tailwind v4 silently ignores invalid class)
+className="absolute bottom--24 left--24 ..."
+// Result: No positioning applied, element sits at default position
+
+// FIXED (single hyphen prefix for negative values)
+className="absolute -bottom-24 -left-24 ..."
+```
+Rule: Tailwind v4 does NOT parse `bottom--24` as negative. Double-hyphen is a literal token, not negation. Always use single hyphen prefix (`-bottom-24`).
+
+### ANTI-PATTERN 7: `inert` prop as string (TS2322)
+
+```tsx
+// WRONG (inert is a BOOLEAN in React, not a string attribute)
+<aside inert={isOpen ? undefined : 'true'} />  // TypeScript TS2322 error
+
+// FIXED (boolean expression or omitted when false)
+<aside inert={!isOpen} />
+```
+Rule: `inert`, `contentEditable`, `autoFocus`, `readOnly` — all are boolean-valued React props. Never pass a string value.
+
 ---
 
 ## Acknowledgments
@@ -334,4 +358,4 @@ it('should auto-remove toast after timeout', () => {
 
 ---
 
-**Project Status**: ✅ MVP Complete — Ready for Enhancement!
+**Project Status**: ✅ MVP+ Complete — Cart drawer, bespoke icon, HeroSection fixes shipped!
