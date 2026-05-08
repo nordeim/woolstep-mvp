@@ -54,6 +54,9 @@ aria-expanded={isCartOpen}
 ### JSX Element Naming
 - **Always match `export` name, `file` name, and `import` name precisely.** Divergence (e.g., `CartOverly` vs `CartOverlay`) causes confusion and violates clean code principles.
 
+### TypeScript Deprecations
+- **`baseUrl` is deprecated in TypeScript 6.0 and will be removed in 7.0.** Remove `baseUrl` from `tsconfig.json` and use relative paths in `paths` (prepend `./`).
+
 ## Important Truths
 - `npx tsr generate` is **always** required after adding/changing routes. TanStack Router generates `routeTree.gen.ts` from file names.
 - `npm install` requires `--legacy-peer-deps` due to Vite 8 peer dependency conflicts.

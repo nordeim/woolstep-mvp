@@ -19,3 +19,5 @@ npx tsc --noEmit 2>&1
 # Run tests after fix
 npx vitest run --reporter=verbose 2>&1
 
+# Type check and test after doc updates
+npx tsc --noEmit && npx vitest run --reporter=verbose 2>&1 

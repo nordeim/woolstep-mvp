@@ -148,3 +148,32 @@ export default defineConfig({
 If any warning persists, use `VITE_DEPRECATION_TRACE=1` again to locate the remaining culprit (likely an outdated sub-dependency) and upgrade accordingly.
 
 This plan and fix systematically eliminate every warning and error while embracing Vite 8’s modern toolchain.
+
+---
+
+**Great news — your package upgrade resolved the runtime deprecation and the invalid `jsx` error.**  
+The `npm run dev` output is now clean, confirming that the new versions (especially `@vitejs/plugin-react@6`) align with Vite 8.
+
+---
+
+### Remaining issue: the `tsc` build error (`TS5101: Option 'baseUrl' is deprecated`)
+
+You previously posted this error while building. Since the runtime side is fixed, let’s fix the TypeScript configuration to get `npm run build` passing.
+
+**The fix is straightforward and already researched:**
+
+1. **Remove** `"baseUrl": "."` from `tsconfig.json`
+2. **Prefix every `paths` entry** with `./` so they become:
+   ```json
+   "@/*": ["./src/*"],
+   "@components/*": ["./src/components/*"],
+   "@hooks/*": ["./src/hooks/*"],
+   "@lib/*": ["./src/lib/*"],
+   "@routes/*": ["./src/routes/*"],
+   "@stores/*": ["./src/stores/*"],
+   "@types/*": ["./src/types/*"]
+   ```
+3. **No changes needed** in `vite.config.ts` or `vitest.config.ts` — the existing `resolve.alias` already matches.
+
+Once applied, `tsc` and `npm run build` will succeed without warnings or errors, and all import aliases will still work correctly.
+

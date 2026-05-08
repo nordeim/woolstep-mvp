@@ -596,6 +596,30 @@ it('should auto-remove toast after timeout', () => {
 }
 ```
 
+### TypeScript `baseUrl` Deprecation (TS5101)
+
+```bash
+# ⚠️ GOTCHA: Option 'baseUrl' is deprecated in TypeScript 6.0
+# ERROR: tsconfig.json:20:5 - error TS5101: Option 'baseUrl' is deprecated
+#
+# ❌ WRONG:
+#   {
+#     "compilerOptions": {
+#       "baseUrl": ".",
+#       "paths": { "@/*": ["src/*"] }
+#     }
+#   }
+#
+# ✅ CORRECT:
+#   {
+#     "compilerOptions": {
+#       "paths": { "@/*": ["./src/*"] }
+#     }
+#   }
+#
+# Fix: Remove "baseUrl", prepend "./" to all paths values
+```
+
 ---
 
 ## 🙏 Acknowledgments#

@@ -107,3 +107,17 @@ File	What Was Updated	Key Additions
 @ACCOMPLISHED.md	Replaced old "Build & Test Status" with comprehensive Audit Results, Skill Compliance Matrix, and Anti-Patterns Found & Resolved	Detailed issue table with skill mapping, before/after code blocks for all 5 fixes, skill compliance scores (95%, 90%, 98%)
 All three documents now accurately reflect the current state of the codebase following the remediation pass.
 
+All three files have been updated. I will now run a quick validation to ensure everything is still working correctly
+# Type check and test after doc updates
+$ npx tsc --noEmit && npx vitest run --reporter=verbose 2>&1 | tail -5
+ Test Files  3 passed (3)
+      Tests  9 passed (9)
+   Start at  21:50:00
+   Duration  16.99s (transform 514ms, setup 3.86s, import 667ms, tests 3.03s, environment 35.46s)
+All three files have been successfully updated:
+File	Status	Key Updates
+@ACCOMPLISHED.md	✅ Rewritten	Added baseUrl fix (Issue #6), runtime error resolution, new anti-pattern (#5), clean structure with all fixes
+@AGENTS.md	✅ Updated	Added "TypeScript Deprecations" section with baseUrl warning
+@README.md	✅ Updated	Added "TypeScript baseUrl Deprecation (TS5101)" gotcha with before/after
+Verification: TypeScript check passes, all 9 tests passing.
+
